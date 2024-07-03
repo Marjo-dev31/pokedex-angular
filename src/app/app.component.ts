@@ -9,5 +9,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'app-pokemon';
+  title = 'Pokédex';
+  name = 'Pikachu';
+  life = 21;
 }
