@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { POKEMON_LIST } from './pokemon-list.fake';
+import { Pokemon } from './pokemon.model';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,27 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Pokédex';
-  name = 'Pikachu';
-  life = 21;
+  pokemonList = signal(POKEMON_LIST);
+
+
+
+  size(pokemon: Pokemon) {
+    if (pokemon.life <= 15) {
+      return 'Petit';
+    }
+    if (pokemon.life >= 25) {
+      return 'Grand';
+    }
+  
+    return 'Moyen';
+  };
+
+  incrementLife(pokemon: Pokemon) {
+    pokemon.life = pokemon.life + 1
+  }
+
+  decrementLife(pokemon: Pokemon) {
+    pokemon.life = pokemon.life - 1
+  }
+
 }
