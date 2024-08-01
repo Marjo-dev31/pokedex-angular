@@ -1,11 +1,14 @@
 import { Directive, ElementRef, HostListener, input } from '@angular/core';
 
 @Directive({
+  // selector CSS pour cibler l element
   selector: '[appPokemonBorder]',
   standalone: true
 })
 export class PokemonBorderDirective {
+  // oblige tous les templates utilisant la directive a fournir l input
   pokemonType = input.required<string>();
+  
   private initialColor: string;
 
   constructor(private el: ElementRef) {
