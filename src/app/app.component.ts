@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Pokemon } from './pokemon.model';
 import { PokemonBorderDirective } from './pokemon-border.directive';
@@ -10,11 +10,18 @@ import { PokemonService } from './pokemon.service';
   standalone: true,
   imports: [RouterOutlet, PokemonBorderDirective, DatePipe],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
- private readonly pokemonService = inject(PokemonService);
- pokemonList = signal(this.pokemonService.getPokemonList())
+  private readonly pokemonService = inject(PokemonService);
+  readonly pokemonList = signal(this.pokemonService.getPokemonList());
+
+  readonly searchTerm = signal('');
+  readonly pokemonListFiltered = computed(()=>{
+    return this.pokemonList().filter((pokemon)=>
+      pokemon.name.toLowerCase().includes(this.searchTerm().trim().toLowerCase())
+    )
+  })
 
   size(pokemon: Pokemon) {
     if (pokemon.life <= 15) {
@@ -23,16 +30,16 @@ export class AppComponent {
     if (pokemon.life >= 25) {
       return 'Grand';
     }
-  
+
     return 'Moyen';
-  };
+  }
 
   incrementLife(pokemon: Pokemon) {
-    pokemon.life = pokemon.life + 1
+    pokemon.life = pokemon.life + 1;
   }
 
   decrementLife(pokemon: Pokemon) {
-    pokemon.life = pokemon.life - 1
+    pokemon.life = pokemon.life - 1;
   }
 
 }
