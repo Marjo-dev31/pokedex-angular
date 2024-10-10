@@ -4,6 +4,7 @@ import { PokemonBorderDirective } from '../../pokemon-border.directive';
 import { DatePipe } from '@angular/common';
 import { PokemonService } from '../../pokemon.service';
 import { RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -20,11 +21,12 @@ import { RouterLink } from '@angular/router';
 })
 export class PokemonListComponent {
   readonly pokemonService = inject(PokemonService);
-  readonly pokemonList = signal(this.pokemonService.getPokemonList());
+  readonly pokemonList = toSignal(this.pokemonService.getPokemonList());
+  readonly loading = computed(()=> !this.pokemonList())
 
   readonly searchTerm = signal('');
   readonly pokemonListFiltered = computed(() => {
-    return this.pokemonList().filter((pokemon) =>
+    return this.pokemonList()?.filter((pokemon) =>
       pokemon.name
         .toLowerCase()
         .includes(this.searchTerm().trim().toLowerCase())
