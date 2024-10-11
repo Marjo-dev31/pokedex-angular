@@ -135,6 +135,17 @@
         "Feu"
       ],
       "created": "2024-08-16T00:00:00Z"
+    },
+    {
+      "name": "Pokéball",
+      "picture": "https://www.pokepedia.fr/images/thumb/e/e2/Pok%C3%A9_Ball-RS.png",
+      "life": 10,
+      "damage": 1,
+      "types": [
+        "Normal"
+      ],
+      "created": "2024-10-11T15:10:17.473Z",
+      "id": 13
     }
   ]
 }
