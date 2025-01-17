@@ -13,8 +13,8 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   
-  readonly name = signal('Pikachu#');
-  readonly password = signal('Pikachu#');
+  readonly name = signal('');
+  readonly password = signal('');
   readonly message = signal(`Vous êtes déconnecté.`);
 
   onSubmit(event: Event) {
